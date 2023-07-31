@@ -6,7 +6,9 @@ import 'package:peliculas/src/models/actores_model.dart';
 
 import 'package:peliculas/src/models/pelicula_model.dart';
 
+
 class Pelicula_Provider {
+  
   final String _apikey = '35a74af57fcfe8619842d555bfe15760';
   final String _url = 'api.themoviedb.org';
   final String _language = 'es-ES';
@@ -70,7 +72,6 @@ class Pelicula_Provider {
     final resp = await http.get(url);
     final decodedData = json.decode(resp.body);
     final bloque = Actores.fromJsonList(decodedData['cast']);
-    print(bloque.actores);
     return bloque.actores;
   }
 
@@ -80,4 +81,39 @@ class Pelicula_Provider {
 
     return await _procesarRespuesta(url);
   }
+
+  Future<String> getVideoId(int peliculaId) async {
+  final url = Uri.https(_url, '3/movie/$peliculaId/videos', {
+    'api_key': _apikey,
+    'language': _language,
+  });
+  final resp = await http.get(url);
+  final decodedData = json.decode(resp.body);
+  final videos = decodedData['results'] as List<dynamic>;
+  if (videos.isNotEmpty) {
+    return videos[0]['key'] as String;
+  } else {
+    throw Exception('No se encontró el video');
+  }
+  }
+
+
+  Future<String?> obtenerVideoId(Pelicula pelicula) async {
+  final url = Uri.https(_url, '3/movie/${pelicula.id}', {
+    'api_key': _apikey,
+    'language': _language,
+    'append_to_response': 'videos'
+  });
+
+  final resp = await http.get(url);
+  final decodedData = json.decode(resp.body);
+
+  if (decodedData['videos']['results'].length > 0) {
+    return decodedData['videos']['results'][0]['key'];
+  } else {
+    return null;
+  }
 }
+
+}
+

@@ -7,7 +7,8 @@ class MovieHorizontal extends StatelessWidget {
 
   final Function siguientePagina;
 
-  MovieHorizontal({super.key, required this.peliculas, required this.siguientePagina});
+  MovieHorizontal(
+      {super.key, required this.peliculas, required this.siguientePagina});
 
   final _pageController = PageController(initialPage: 1, viewportFraction: 0.3);
 
@@ -36,8 +37,7 @@ class MovieHorizontal extends StatelessWidget {
 }
 
 Widget crearTarjeta(BuildContext context, Pelicula pelicula) {
-  pelicula.uniqueId ='${ pelicula.id}-poster';
-
+  pelicula.uniqueId = '${pelicula.id}-poster';
   final tarjeta = Container(
     margin: const EdgeInsets.only(right: 20.0),
     child: Column(children: <Widget>[
@@ -54,17 +54,16 @@ Widget crearTarjeta(BuildContext context, Pelicula pelicula) {
         ),
       ),
       const SizedBox(height: 10.0),
-      Text(
-        pelicula.title!,
-        overflow: TextOverflow.ellipsis,
-        style: Theme.of(context).textTheme.bodySmall,
-      )
+      Text(pelicula.title!,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(
+              fontWeight: FontWeight.bold, color: Colors.black, fontSize: 15))
     ]),
   );
   return GestureDetector(
     child: tarjeta,
-    onTap: (){
-      Navigator.pushNamed(context, 'detalle',arguments: pelicula);
+    onTap: () {
+      Navigator.pushNamed(context, 'detalle', arguments: pelicula);
     },
   );
 }

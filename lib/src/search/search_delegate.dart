@@ -6,25 +6,6 @@ class PeliculaSearch extends SearchDelegate {
   String seleccion = '';
 
   final peliculasProvider = Pelicula_Provider();
-
-  final peliculas = [
-    'SpiderMan',
-    'CapitanAmerica',
-    'SpiderMan',
-    'SapitanAmerica',
-    'SpiderMan',
-    'CapitanAmerica',
-    'SpiderMan',
-    'SapitanAmerica',
-    'SpiderMan',
-    'CapitanAmerica',
-  ];
-
-  final peliculasRecientes = [
-    'SpiderMan',
-    'CapitanAmerica',
-  ];
-
   @override
   List<Widget>? buildActions(BuildContext context) {
     //Son las acciones del appBar
@@ -74,25 +55,23 @@ class PeliculaSearch extends SearchDelegate {
           if (snapshot.hasData) {
             final peliculas = snapshot.data;
             return ListView(
-              children: peliculas!.map((pelicula) {
-                return ListTile(
-                  leading: FadeInImage(
+                children: peliculas!.map((pelicula) {
+              return ListTile(
+                leading: FadeInImage(
                     image: NetworkImage(pelicula.getPosterImg()),
                     placeholder: AssetImage('assets/img/no-image.jpg'),
                     width: 50.0,
-                    fit:BoxFit.contain
-                  ),
-                  title: Text(pelicula.title!),
-                  subtitle: Text(pelicula.originalTitle!),
-                  onTap: (){
-                    close(context, null);
-                    pelicula.uniqueId='';
-                    Navigator.pushNamed(context, 'detalle',arguments: pelicula);
-                  },
-                );
-              }).toList()
-            );
-          }else{
+                    fit: BoxFit.contain),
+                title: Text(pelicula.title!),
+                subtitle: Text(pelicula.originalTitle!),
+                onTap: () {
+                  close(context, null);
+                  pelicula.uniqueId = '';
+                  Navigator.pushNamed(context, 'detalle', arguments: pelicula);
+                },
+              );
+            }).toList());
+          } else {
             return const Center(
               child: CircularProgressIndicator(),
             );

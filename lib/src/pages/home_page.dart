@@ -38,12 +38,12 @@ class HomePage extends StatelessWidget {
           ],
         ),
         body: Container(
-          color: Colors.blueGrey,
+          color: const Color(0xFF26526A),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               _swiperTarjetas(),
-              const SizedBox(height : 20.0),
+              const SizedBox(height : 10.0),
               _footer(context)
             ],
           ),
@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
               return CardSwipper( peliculas: snapshot.data!);
             }else{
               return const SizedBox(
-                height: 400.0,
+                height: 380.0,
                 child: Center(
                   child : CircularProgressIndicator()
                 ),
@@ -69,8 +69,7 @@ class HomePage extends StatelessWidget {
         },
         ); 
     }
-
-
+    
     Widget _footer(BuildContext context){
       return SizedBox(
         width: double.infinity,
@@ -79,7 +78,11 @@ class HomePage extends StatelessWidget {
           children:<Widget>[
             Container(
               padding: const EdgeInsets.only(left: 20.0),
-              child: Text('Populares',style: Theme.of(context).textTheme.subtitle1)),
+              child: const Text('Populares',style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontSize: 20
+              ))),
             const SizedBox(height: 5.0),
             StreamBuilder(
               stream: peliculasProvider.popularesStream,

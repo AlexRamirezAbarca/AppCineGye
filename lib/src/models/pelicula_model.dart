@@ -16,6 +16,7 @@ class Peliculas {
 }
 
 class Pelicula {
+  String? idVideo;
   String? uniqueId;
   bool? adult;
   String? backdropPath;
