@@ -38,6 +38,7 @@ dependencies:
   flutter_swiper: ^1.1.6
   flutter_youtube: ^2.0.0+1
   http: ^0.13.5
+  shared_preferences: ^2.2.0
   youtube_player_flutter: ^8.1.2
 
 dev_dependencies:
